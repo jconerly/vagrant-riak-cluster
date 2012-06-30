@@ -46,10 +46,16 @@ class riak {
 
   if $ip_addr != $join_ip {
     exec { "join_riak":
-      command => "sudo -u riak riak-admin join riak@${join_ip}",
-      path => "/usr/bin:/usr/sbin",
+      command => "/vagrant/files/join_riak '${join_ip}'",
+      path => "/bin:/usr/bin",
       require => Service["riak"],
     }
+  }
+
+  exec { "alias_riak":
+    command => "/vagrant/files/alias_riak",
+    path => "/usr/bin",
+    require => Service["riak"],
   }
 }
 

@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+my $alias = `cat ~/.bashrc | grep "alias 'riak'="`;
+my $rc = "/home/vagrant/.bashrc";
+
+exit 0 if $alias;
+
+`echo >> $rc`;
+`echo "# Riak alias for vagrant user" >> $rc`;
+`echo "alias 'riak'='sudo -u riak riak'" >> $rc`;
+`echo "alias 'riak-admin'='sudo -u riak riak-admin'" >> $rc`;
+
+exit 0;
