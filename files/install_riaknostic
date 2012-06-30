@@ -1,0 +1,21 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+exit 0 if `ls /usr/lib64/riak/lib/ | grep riaknostic`;
+
+chomp(my $tarball = `ls /vagrant/files/riaknostic-*.gz`);
+my $name = $tarball;
+$name =~ s/.+\/(.+)$/$1/;
+
+exit 1 unless $tarball;
+
+my $rv = system 'cp', $tarball, '/tmp';
+exit $rv if $rv;
+
+chdir '/usr/lib64/riak/lib';
+
+exit(system 'tar', '-xzvf', "/tmp/$name");
+
+__END__

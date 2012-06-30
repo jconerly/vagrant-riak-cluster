@@ -6,6 +6,16 @@ class riak {
     path => "/bin:/usr/bin",
   }
 
+  exec { "install_riaknostic":
+    command => "/vagrant/files/install_riaknostic",
+    path => "/bin:/usr/bin",
+  }
+
+  package { "riak":
+    ensure => present,
+    require => [ Exec["install_riak"], Exec["install_riaknostic"] ],
+  }
+
   file { "app.config":
     path => "/etc/riak/app.config",
     ensure => file,
@@ -24,11 +34,6 @@ class riak {
     mode => "0644",
     content => template("riak/vm.args.erb"),
     require => Package["riak"],
-  }
-
-  package { "riak":
-    ensure => present,
-    require => Exec["install_riak"],
   }
 
   exec { "flush_iptables":
