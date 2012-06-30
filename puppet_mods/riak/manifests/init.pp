@@ -2,8 +2,8 @@
 
 class riak {
   exec { "install_riak":
-    command => "rpm -Uvh /vagrant/files/${riak_rpm}",
-    path => "/bin",
+    command => "/vagrant/files/install_riak",
+    path => "/bin:/usr/bin",
   }
 
   file { "app.config":

@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+exit 0 if `/bin/rpm -qa riak`;
+
+chomp(my $rpm = `ls /vagrant/files/riak-*.rpm`);
+
+exit(system '/bin/rpm', '-Uvh', $rpm);
+
+__END__
