@@ -1,7 +1,7 @@
 vagrant-riak-cluster
 ====================
 
-Vagrant setup for firing up a centos6 riak cluster.
+Vagrant setup for creating a centos6 riak cluster.
 
 For this to work you'll need a CentOS 6 base box added
 to your Vagrant install with the name `centos6`, i.e.:
