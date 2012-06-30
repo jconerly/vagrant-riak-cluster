@@ -2,7 +2,7 @@
 
 class riak {
   exec { "install_riak":
-    command => "rpm -Uvh /vagrant/rpms/${riak_rpm}",
+    command => "rpm -Uvh /vagrant/files/${riak_rpm}",
     path => "/bin",
   }
 
