@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+my $status = `/usr/sbin/riak-admin status`;
+$status =~ s/.*ring_members\s+:\s+\[(.+)\].+ring_num_partitions.+/$1/s;
+my @nodes = map {s/\'//g; " - $_"} split ',', $status;
+
+print join("\n", @nodes)."\n";

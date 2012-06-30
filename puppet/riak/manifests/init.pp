@@ -19,8 +19,8 @@ class riak {
   file { "app.config":
     path => "/etc/riak/app.config",
     ensure => file,
-    owner => "root",
-    group => "root",
+    owner => "riak",
+    group => "riak",
     mode => "0644",
     content => template("riak/app.config.erb"),
     require => Package["riak"],
@@ -29,10 +29,20 @@ class riak {
   file { "vm.args":
     path => "/etc/riak/vm.args",
     ensure => file,
-    owner => "root",
-    group => "root",
+    owner => "riak",
+    group => "riak",
     mode => "0644",
     content => template("riak/vm.args.erb"),
+    require => Package["riak"],
+  }
+
+  file { "riak-nodes":
+    path => "/usr/bin/riak-nodes",
+    ensure => file,
+    owner => "root",
+    group => "root",
+    mode => "0755",
+    content => template("riak/riak-nodes.erb"),
     require => Package["riak"],
   }
 
