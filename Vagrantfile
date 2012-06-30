@@ -2,7 +2,22 @@
 # vim: set ft=ruby :
 # vim: set syntax=ruby :
 
+# Select the number of riak nodes in the cluster.
+
 num_nodes = 5
+
+# Select the storage backend you want for Riak.
+# To take advantage of 2i we must use eLevelDB.
+#
+# Valid options are:
+#
+#   bitcask
+#   eleveldb
+#   innostore
+#   memory
+#   multi
+
+riak_backend = "eleveldb"
 
 # TODO Allow users to pass in the number of nodes
 #      they want to create from the command line:
@@ -36,8 +51,9 @@ Vagrant::Config.run do |global_config|
     prov_args = {
       :module_path => "puppet",
       :facter => {
-        "ip_addr"  => ip_addr,
-        "join_ip"  => join_ip,
+        "ip_addr"      => ip_addr,
+        "join_ip"      => join_ip,
+	"riak_backend" => riak_backend,
       }
     }
 

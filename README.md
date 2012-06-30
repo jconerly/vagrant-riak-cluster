@@ -29,3 +29,16 @@ in on the command line, ala:
     $ vagrant up --nodes N
 
 but for now you'll just have to edit the `Vagrantfile`.
+
+choosing your storage backend
+=============================
+
+Riak supports several different [storage backends](http://wiki.basho.com/Storage-Backends.html).
+To be able to use Riak 2i the eLevelDB must be selected as your backend,
+so that is what the default value is set to in the `Vagrantfile`. To select
+a different one just change the following line in the `Vagrantfile`:
+
+    riak_backend = "eleveldb"
+
+All of the available options are listed in the comment above that line,
+and of course can be found in the link provided.
