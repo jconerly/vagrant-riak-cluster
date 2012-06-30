@@ -2,9 +2,25 @@
 # vim: set ft=ruby :
 # vim: set syntax=ruby :
 
+#--- BEGIN config vars ---#
+
 # Select the number of riak nodes in the cluster.
 
-num_nodes = 5
+num_nodes = 2
+
+# Select the name of the box you prefer.
+#
+# This will only work with CentOS 6 base boxes, but if the name
+# you used when you added the box is different from 'centos6' 
+# then change this value.
+
+base_box = "centos6"
+
+# Base IP value.
+#
+# Change it if you need.
+
+base_ip = "33.33.33."
 
 # Select the storage backend you want for Riak.
 # To take advantage of 2i we must use eLevelDB.
@@ -19,52 +35,37 @@ num_nodes = 5
 
 riak_backend = "eleveldb"
 
-# TODO Allow users to pass in the number of nodes
-#      they want to create from the command line:
-#
-#   $ vagrant up --nodes 3
-#
-#if ARGV[0] == "up" && ARGV[1] && ARGV[1].to_i > 0
-#   num_nodes = ARGV[1].to_i
-#end
+# IP addresses can't start at one (i.e X.X.X.1) or complaints will
+# come your way. This is the IP increment for the ip4 value.
 
-ip_inc   = 10
-base_ip  = "33.33.33."
-join_ip  = "#{base_ip}#{ip_inc}"
+ip_inc = 10
 
-riak_nodes = Hash.new
-for i in 1..num_nodes
-  name = "riak#{i}"
-  ip = i * ip_inc
-  riak_nodes[":#{name}"] = {
-    :hostname => name,
-    :ip_addr  => "#{base_ip}#{ip}",
-  }
-end
+#--- END config vars ---#
 
-Vagrant::Config.run do |global_config|
+Vagrant::Config.run do |cluster|
 
-  riak_nodes.each_pair do |key, options|
+  (1..num_nodes).each do |index|
 
-    ip_addr   = options[:ip_addr]
-    hostname  = options[:hostname]
+    ip4       = index * ip_inc
+    ip_addr   = "#{base_ip}#{ip4}"
+    hostname  = "riak#{index}"
     prov_args = {
-      :module_path => "puppet",
       :facter => {
         "ip_addr"      => ip_addr,
-        "join_ip"      => join_ip,
+        "join_ip"      => "#{base_ip}#{ip_inc}",
 	"riak_backend" => riak_backend,
       }
     }
 
-    global_config.vm.define hostname do |node_config|
-      node_config.vm.box       = "centos6"
-      node_config.vm.boot_mode = :headless
-      node_config.vm.host_name = hostname
-      node_config.vm.network :hostonly, ip_addr
+    cluster.vm.define hostname do |node|
+      node.vm.box       = base_box
+      node.vm.host_name = hostname
+      node.vm.boot_mode = :headless
 
-      node_config.vm.provision :puppet, prov_args do |puppet|
+      node.vm.network   :hostonly, ip_addr
+      node.vm.provision :puppet, prov_args do |puppet|
         puppet.manifests_path = "puppet"
+	puppet.module_path    = "puppet"
         puppet.manifest_file  = "init.pp"
       end
     end
