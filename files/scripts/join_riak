@@ -4,12 +4,9 @@ use strict;
 use warnings;
 
 my $join_ip = shift || die "Usage: $0 JOIN_IP\n";
-print STDERR "SHIT1\n";
 my $conn    = `sudo -u riak /usr/sbin/riak-admin status | grep -i connected_nodes | grep "33.10"`;
-print STDERR "SHIT2\n";
 
 exit 0 if $conn;
-print STDERR "SHIT3\n";
 
 exit(system "sudo -u riak /usr/sbin/riak-admin join riak\@$join_ip");
 
