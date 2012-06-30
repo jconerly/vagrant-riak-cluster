@@ -16,7 +16,6 @@ num_nodes = 5
 ip_inc   = 10
 base_ip  = "33.33.33."
 join_ip  = "#{base_ip}#{ip_inc}"
-riak_rpm = "riak-*.rpm"
 
 riak_nodes = Hash.new
 for i in 1..num_nodes
@@ -35,9 +34,8 @@ Vagrant::Config.run do |global_config|
     ip_addr   = options[:ip_addr]
     hostname  = options[:hostname]
     prov_args = {
-      :module_path => "puppet_mods",
+      :module_path => "puppet",
       :facter => {
-        "riak_rpm" => riak_rpm,
         "ip_addr"  => ip_addr,
         "join_ip"  => join_ip,
       }
@@ -50,8 +48,8 @@ Vagrant::Config.run do |global_config|
       node_config.vm.network :hostonly, ip_addr
 
       node_config.vm.provision :puppet, prov_args do |puppet|
-        puppet.manifests_path = "manifests"
-        puppet.manifest_file  = "riak.pp"
+        puppet.manifests_path = "puppet"
+        puppet.manifest_file  = "init.pp"
       end
     end
   end
