@@ -265,11 +265,11 @@
  %% riak_control config
  {riak_control, [
                 %% Set to false to disable the admin panel.
-                {enabled, false},
+                {enabled, true},
 
                 %% Authentication style used for access to the admin
                 %% panel. Valid styles are 'userlist' <TODO>.
-                {auth, userlist},
+                {auth, none},
 
                 %% If auth is set to 'userlist' then this is the
                 %% list of usernames and passwords for access to the

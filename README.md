@@ -44,3 +44,11 @@ a different one just change the following line in the `Vagrantfile`:
 
 All of the available options are listed in the comment above that line,
 and of course can be found in the link provided.
+
+
+riak control
+===========================
+
+Riak control has been enabled with-out security or ssl. You should not use riak control in production without ssl or authentication security enabled.
+
+You can access the riak-control console by visiting http://33.33.33.10:8098/admin
