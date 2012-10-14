@@ -22,10 +22,10 @@ choosing the size of your cluster
 =================================
 
 By default running `vagrant up` will create a riak cluster
-with 5 nodes. To change this edit the first line of code in
+with 3 nodes. To change this edit the first line of code in
 the `Vagrantfile`. It looks like:
 
-    num_nodes = 5
+    num_nodes = 3
 
 choosing your storage backend
 =============================
