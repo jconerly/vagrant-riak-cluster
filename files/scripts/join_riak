@@ -3,12 +3,13 @@
 use strict;
 use warnings;
 
+my $admin = 'sudo -u riak /usr/sbin/riak-admin';
 my $join_ip = shift || die "Usage: $0 JOIN_IP\n";
-my $conn    = `sudo -u riak /usr/sbin/riak-admin status | grep -i connected_nodes | grep "33.10"`;
+my $conn    = `$admin status | grep -i connected_nodes | grep "33.10"`;
 
 exit 0 if $conn;
+my $cluster = "$admin cluster";
 
-exit(system "sudo -u riak /usr/sbin/riak-admin cluster join riak\@$join_ip;".
-            "sudo -u riak /usr/sbin/riak-admin cluster commit");
+exit(system "$cluster join riak\@$join_ip; $cluster plan; $cluster commit");
 
 __END__
