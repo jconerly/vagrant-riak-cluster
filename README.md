@@ -1,7 +1,9 @@
 vagrant-riak-cluster
 ====================
 
-Vagrant setup for creating a centos6 riak cluster.
+Vagrant setup for creating a centos6 riak cluster. This vagrant
+will let you create a riak cluster of N nodes that will automatically
+be joined together.
 
 For this to work you'll need a CentOS 6 base box added
 to your Vagrant install with the name `centos6`, i.e.:
@@ -11,26 +13,19 @@ to your Vagrant install with the name `centos6`, i.e.:
     lucid32
     ...
 
-You can grab pre-existing CentOS 6 base boxes of the
-internet, or roll your own using [veewee](https://github.com/jedi4ever/veewee/).
+You can grab pre-existing CentOS 6 base boxes of the internet, or roll
+your own using [veewee](https://github.com/jedi4ever/veewee/).
 
 Make sure to grab one with Puppet installed, or install it yourself and then do a vagrant reload.
 
 choosing the size of your cluster
 =================================
 
-By default running `'vagrant up'` will create a riak cluster
+By default running `vagrant up` will create a riak cluster
 with 5 nodes. To change this edit the first line of code in
 the `Vagrantfile`. It looks like:
 
     num_nodes = 5
-
-Eventually I'm going to make it so you can pass that value
-in on the command line, ala:
-
-    $ vagrant up --nodes N
-
-but for now you'll just have to edit the `Vagrantfile`.
 
 choosing your storage backend
 =============================
@@ -44,7 +39,6 @@ a different one just change the following line in the `Vagrantfile`:
 
 All of the available options are listed in the comment above that line,
 and of course can be found in the link provided.
-
 
 riak control
 ===========================
