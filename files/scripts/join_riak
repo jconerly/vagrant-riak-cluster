@@ -8,6 +8,7 @@ my $conn    = `sudo -u riak /usr/sbin/riak-admin status | grep -i connected_node
 
 exit 0 if $conn;
 
-exit(system "sudo -u riak /usr/sbin/riak-admin cluster join riak\@$join_ip");
+exit(system "sudo -u riak /usr/sbin/riak-admin cluster join riak\@$join_ip;".
+            "sudo -u riak /usr/sbin/riak-admin cluster commit");
 
 __END__
