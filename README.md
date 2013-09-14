@@ -29,7 +29,7 @@ Creating your Riak cluster
 Sometimes things fail, especially if you're firing off vagrant commands as the
 cluster is being created. If it fails out just do the following:
 
-    $ vagrant destroy
+    $ vagrant destroy -f
     $ vagrant up
 
 After your cluster is created SSH into one of the boxes and make sure all your
@@ -44,6 +44,28 @@ nodes are connected:
 
 The riak-nodes command does not ship with Riak. It's just a little perl script
 this vagrant module installs to let you see all the nodes that are connected.
+
+Test Driving Riak
+=================
+
+First let's test that we can talk to riak. From your host machine run this
+curl command:
+
+    $ curl http://33.33.33.10:8098/riak/test
+
+And you should see JSON output like:
+
+    {"props":{"name":"test","allow_mult":false,"basic_quorum":false,"big_vclock":50,"chash_keyfun":{"mod":"riak_core_util","fun":"chash_std_keyfun"},"dw":"quorum","last_write_wins":false,"linkfun":{"mod":"riak_kv_wm_link_walker","fun":"mapreduce_linkfun"},"n_val":3,"notfound_ok":true,"old_vclock":86400,"postcommit":[],"pr":0,"precommit":[],"pw":0,"r":"quorum","rw":"quorum","small_vclock":50,"w":"quorum","young_vclock":20}}
+
+Excellent. Now lets add and retrieve some data from Riak. Save the image
+below as 1.jpg and do the following:
+
+    $ curl -XPUT http://33.33.33.10:8098/riak/images/1.jpg -H "Content-type: image/jpeg" --data-binary @1.jpg
+
+Now go to http://33.33.33.10:8098/riak/images/1.jpg in your browser and you
+should see your image.
+
+![Alt text](files/1.jpg)
 
 Changing the size of your cluster
 =================================
