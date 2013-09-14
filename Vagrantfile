@@ -10,9 +10,8 @@ num_nodes = 3
 
 # Select the name of the box you prefer.
 #
-# This will only work with CentOS 6 base boxes, but if the name
-# you used when you added the box is different from 'centos6' 
-# then change this value.
+# This will only work with CentOS 6 base boxes, but if the name you used when
+# you added the box is different from 'centos6' then change this value.
 
 base_box = "centos6"
 
@@ -22,21 +21,18 @@ base_box = "centos6"
 
 base_ip = "33.33.33."
 
-# Select the storage backend you want for Riak.
-# To take advantage of 2i we must use eLevelDB.
-#
-# Valid options are:
+# Select the storage backend you want for Riak. To take advantage of 2i we
+# must use eLevelDB. Valid options are:
 #
 #   bitcask
 #   eleveldb
-#   innostore
 #   memory
 #   multi
 
 riak_backend = "eleveldb"
 
-# IP addresses can't start at one (i.e X.X.X.1) or complaints will
-# come your way. This is the IP increment for the ip4 value.
+# IP addresses can't start at one (i.e X.X.X.1) or complaints will come
+# your way. This is the IP increment for the ip4 value.
 
 ip_inc = 10
 
@@ -53,7 +49,7 @@ Vagrant::Config.run do |cluster|
       :facter => {
         "ip_addr"      => ip_addr,
         "join_ip"      => "#{base_ip}#{ip_inc}",
-	"riak_backend" => riak_backend,
+        "riak_backend" => riak_backend,
       }
     }
 
@@ -65,7 +61,7 @@ Vagrant::Config.run do |cluster|
       node.vm.network   :hostonly, ip_addr
       node.vm.provision :puppet, prov_args do |puppet|
         puppet.manifests_path = "puppet"
-	puppet.module_path    = "puppet"
+        puppet.module_path    = "puppet"
         puppet.manifest_file  = "init.pp"
       end
     end
