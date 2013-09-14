@@ -16,8 +16,9 @@ to your Vagrant install with the name `centos6`, i.e.:
 You can grab pre-existing CentOS 6 base boxes of the internet, or roll
 your own using [veewee](https://github.com/jedi4ever/veewee/).
 
-Make sure to grab one with Puppet installed, or install it yourself and then do a vagrant reload.
-The following will download a puppet enabled CentOS6 base bosx:
+Make sure to grab one with Puppet installed, or install it yourself and then
+do a vagrant reload. The following will download a puppet enabled CentOS6
+base box:
 
     $ vagrant box add centos6 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130427.box
 
