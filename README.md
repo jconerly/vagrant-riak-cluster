@@ -17,6 +17,9 @@ You can grab pre-existing CentOS 6 base boxes of the internet, or roll
 your own using [veewee](https://github.com/jedi4ever/veewee/).
 
 Make sure to grab one with Puppet installed, or install it yourself and then do a vagrant reload.
+The following will download a puppet enabled CentOS6 base bosx:
+
+    $ vagrant box add centos6 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130427.box
 
 choosing the size of your cluster
 =================================
@@ -30,8 +33,7 @@ the `Vagrantfile`. It looks like:
 choosing your storage backend
 =============================
 
-Riak supports several different [storage backends](http://wiki.basho.com/Storage-Backends.html).
-To be able to use Riak 2i the eLevelDB must be selected as your backend,
+Riak supports several different [storage backends](http://docs.basho.com/riak/latest/ops/building/planning/backends/). To be able to use Riak 2i the eLevelDB must be selected as your backend,
 so that is what the default value is set to in the `Vagrantfile`. To select
 a different one just change the following line in the `Vagrantfile`:
 
@@ -43,6 +45,6 @@ and of course can be found in the link provided.
 riak control
 ===========================
 
-Riak control has been enabled with-out security or ssl. You should not use riak control in production without ssl or authentication security enabled.
+Riak control has been enabled without security or ssl. You should not use riak control in production without ssl or authentication security enabled.
 
 You can access the riak-control console by visiting http://33.33.33.10:8098/admin
