@@ -21,7 +21,31 @@ The following will download a puppet enabled CentOS6 base bosx:
 
     $ vagrant box add centos6 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130427.box
 
-choosing the size of your cluster
+Creating your Riak cluster
+==========================
+
+    $ vagrant up
+
+Sometimes things fail, especially if you're firing off vagrant commands as the
+cluster is being created. If it fails out just do the following:
+
+    $ vagrant destroy
+    $ vagrant up
+
+After your cluster is created SSH into one of the boxes and make sure all your
+nodes are connected:
+
+    $ vagrant ssh riak1
+    Welcome to your Vagrant-built virtual machine.
+    [vagrant@riak1 ~]$ riak-nodes
+     - riak@33.33.33.10
+     - riak@33.33.33.20
+     - riak@33.33.33.30
+
+The riak-nodes command does not ship with Riak. It's just a little perl script
+this vagrant module installs to let you see all the nodes that are connected.
+
+Changing the size of your cluster
 =================================
 
 By default running `vagrant up` will create a riak cluster
@@ -30,7 +54,7 @@ the `Vagrantfile`. It looks like:
 
     num_nodes = 3
 
-choosing your storage backend
+Changing your storage backend
 =============================
 
 Riak supports several different [storage backends](http://docs.basho.com/riak/latest/ops/building/planning/backends/). To be able to use Riak 2i the eLevelDB must be selected as your backend,
@@ -42,8 +66,8 @@ a different one just change the following line in the `Vagrantfile`:
 All of the available options are listed in the comment above that line,
 and of course can be found in the link provided.
 
-riak control
-===========================
+Riak Control
+============
 
 Riak control has been enabled without security or ssl. You should not use riak control in production without ssl or authentication security enabled.
 
